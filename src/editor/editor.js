@@ -55,18 +55,15 @@ class EditorComponent extends React.Component {
   }
   updateBody = async val => {
     await this.setState({ text: val });
-    this.update();
+    this.update({ body: this.state.text, title: null });
   };
   updateTitle = async txt => {
     await this.setState({ title: txt });
-    this.update();
+    this.update({ body: null, title: this.state.title });
   };
-  update = debounce(() => {
-    this.props.noteUpdate(this.state.id, {
-      title: this.state.title,
-      body: this.state.text
-    });
-  }, 10);
+  update = debounce(({ body, title }) => {
+    this.props.noteUpdate({ id: this.state.id, title: title, body: body });
+  }, 1500);
 }
 
 export default withStyles(styles)(EditorComponent);

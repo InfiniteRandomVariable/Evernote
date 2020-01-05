@@ -18,20 +18,8 @@ class SidebarItemComponent extends React.PureComponent {
   }
 
   componentDidMount = () => {
-    let text = this.props._note.body
-      .substring(0, 30)
-      .replace(/(<([^>]+)>)/gi, "");
-    console.log(`TEXT, ${text}`);
-
-    if (text.length > 20) {
-      this.setState({
-        subtitleText: `${text}...`
-      });
-    } else {
-      this.setState({
-        subtitleText: `${text}`
-      });
-    }
+    console.log("componentDidMount");
+    this.updateSubtitle();
   };
 
   // shouldComponentUpdate = () => {
@@ -43,14 +31,7 @@ class SidebarItemComponent extends React.PureComponent {
   componentDidUpdate = () => {
     //let title = this.props._notes?.title;
     console.log(`SidebarItem componentDidUpdate`);
-
-    // const defaultNotSelectedValue = -1;
-    // if (
-    //   typeof this.props._notes !== "undefined" &&
-    //   typeof this.props._notes.title !== "undefined"
-    // ) {
-    //   console.log(`SidebarItem componentDidUpdate ${this.props._notes.title}`);
-    // }
+    this.updateSubtitle();
   };
 
   render() {
@@ -87,6 +68,22 @@ class SidebarItemComponent extends React.PureComponent {
   deleteNote = note => {
     if (window.confirm(`Are you sure you want to delete: ${note.title}`)) {
       this.props.deleteNote(note);
+    }
+  };
+  updateSubtitle = () => {
+    let text = this.props._note.body
+      .substring(0, 30)
+      .replace(/(<([^>]+)>)/gi, "");
+    console.log(`TEXT, ${text}`);
+    console.log("SidebarItem componentDidMount");
+    if (text.length > 20) {
+      this.setState({
+        subtitleText: `${text}...`
+      });
+    } else {
+      this.setState({
+        subtitleText: `${text}`
+      });
     }
   };
 }

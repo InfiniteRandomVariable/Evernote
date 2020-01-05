@@ -14,6 +14,7 @@ class App extends React.PureComponent {
       notes: null
     };
     this.selectNote = this.selectNote.bind(this);
+    this.noteUpdate = this.noteUpdate.bind(this);
   }
 
   componentDidUpdate = () => {
@@ -52,7 +53,8 @@ class App extends React.PureComponent {
           data["id"] = _doc.id;
           return data;
         });
-        console.log(notes);
+        console.log("App Firebase is setting state");
+        //console.log(notes);
         this.setState({ notes: notes });
       });
   };
@@ -61,17 +63,22 @@ class App extends React.PureComponent {
     this.setState({ selectedNoteIndex: index, selectedNote: note });
   }
 
-  noteUpdate = (id, noteObj) => {
+  noteUpdate({ id, title, body }) {
+    let obj = { timestamp: firebase.firestore.FieldValue.serverTimestamp() };
+    if (title !== null) {
+      obj.title = title;
+    }
+    if (body !== null) {
+      obj.body = body;
+    }
+
     firebase
       .firestore()
       .collection("notes")
       .doc(id)
-      .update({
-        title: noteObj.title,
-        body: noteObj.body,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-  };
+      .update(obj);
+  }
+
   newNote = async title => {
     const note = {
       title: title,

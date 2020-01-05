@@ -5,7 +5,7 @@ import List from "@material-ui/core/List";
 import { Divider, Button } from "@material-ui/core";
 import SidebarItemComponent from "../sidebaritem/sidebarItem";
 
-class SidebarComponent extends React.Component {
+class SidebarComponent extends React.PureComponent {
   constructor() {
     super();
     this.state = {
@@ -43,10 +43,10 @@ class SidebarComponent extends React.Component {
           <List>
             {notes.map((_note, _index) => {
               return (
-                <React.Fragment key={_index + _note.title}>
+                <React.Fragment key={_note.id}>
                   <SidebarItemComponent
                     _note={_note}
-                    _index={_index + _note.title}
+                    _index={_note.id}
                     selectedNoteIndex={selectedNoteIndex}
                     selectNote={this.selectNote}
                     deleteNote={this.deleteNote}
