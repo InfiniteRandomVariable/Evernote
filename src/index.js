@@ -1,23 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
-const firebase = require('firebase');
-require('firebase/firestore');
+const firebase = require("firebase");
+require("firebase/firestore");
 
-firebase.initializeApp({
-  apiKey: "AIzaSyB_Pq5AHrbKM2te-Ky1Zm45BqIodKLLNX0",
-  authDomain: "evernote-clone-44896.firebaseapp.com",
-  databaseURL: "https://evernote-clone-44896.firebaseio.com",
-  projectId: "evernote-clone-44896",
-  storageBucket: "evernote-clone-44896.appspot.com",
-  messagingSenderId: "915706065297",
-  appId: "1:915706065297:web:103bb9bcb967aef5"
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyAL228FllKdBqDb-UAMdQbExrQFjXAaqVk",
+  authDomain: "evernotejan03.firebaseapp.com",
+  databaseURL: "https://evernotejan03.firebaseio.com",
+  projectId: "evernotejan03",
+  storageBucket: "evernotejan03.appspot.com",
+  messagingSenderId: "701731127663",
+  appId: "1:701731127663:web:41dda1d26a708d0cf2a89a"
+};
 
-ReactDOM.render(<App />, document.getElementById('evernote-container'));
+firebase.initializeApp(firebaseConfig);
+
+ReactDOM.render(<App />, document.getElementById("evernote-container"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
