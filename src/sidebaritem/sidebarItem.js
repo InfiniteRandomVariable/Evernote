@@ -22,12 +22,6 @@ class SidebarItemComponent extends React.PureComponent {
     this.updateSubtitle();
   };
 
-  // shouldComponentUpdate = () => {
-  //   if (this.state.index !== this.props.selectedNoteIndex) {
-  //     //  this.state
-  //   }
-  // };
-
   componentDidUpdate = () => {
     //let title = this.props._notes?.title;
     console.log(`SidebarItem componentDidUpdate`);
@@ -71,9 +65,15 @@ class SidebarItemComponent extends React.PureComponent {
     }
   };
   updateSubtitle = () => {
-    let text = this.props._note.body
-      .substring(0, 30)
-      .replace(/(<([^>]+)>)/gi, "");
+    let _text = this.props._note.body;
+    if (_text.length === 0) {
+      this.setState({
+        subtitleText: "Empty"
+      });
+      return;
+    }
+
+    let text = _text.substring(0, 30).replace(/(<([^>]+)>)/gi, "");
     console.log(`TEXT, ${text}`);
     console.log("SidebarItem componentDidMount");
     if (text.length > 20) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import SidebarComponent from "./sidebar/sidebar";
 import EditorComponent from "./editor/editor";
 import "./App.css";
@@ -35,7 +35,6 @@ class App extends React.PureComponent {
           <EditorComponent
             selectedNote={this.state.selectedNote}
             selectedNoteIndex={this.state.selectedNoteIndex}
-            notes={this.state.notes}
             noteUpdate={this.noteUpdate}
           ></EditorComponent>
         ) : null}
@@ -93,13 +92,15 @@ class App extends React.PureComponent {
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
     const newID = newFromDB.id;
-    await this.setState({ notes: [...this.state.notes, note] });
-    const newNoteIndex = this.state.notes.indexOf(
-      this.state.notes.filter(_note => _note.id === newID)[0]
+    // await this.setState({ notes: [...this.state.notes, note] });
+    const newNotes = [...this.state.notes, note];
+    const newNoteIndex = newNotes.indexOf(
+      newNotes.filter(_note => _note.id === newID)[0]
     );
     this.setState({
       selectedNote: this.state.notes[newNoteIndex],
-      selectedNoteIndex: newNoteIndex
+      selectedNoteIndex: newNoteIndex,
+      notes: newNotes
     });
   };
   deleteNote = async note => {
