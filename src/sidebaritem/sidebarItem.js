@@ -25,7 +25,9 @@ class SidebarItemComponent extends React.PureComponent {
   componentDidUpdate = () => {
     //let title = this.props._notes?.title;
     console.log(`SidebarItem componentDidUpdate`);
-    this.updateSubtitle();
+    if (this.state.subtitleText !== this.props._note.body) {
+      this.updateSubtitle();
+    }
   };
 
   render() {
@@ -75,7 +77,6 @@ class SidebarItemComponent extends React.PureComponent {
 
     let text = _text.substring(0, 30).replace(/(<([^>]+)>)/gi, "");
     console.log(`TEXT, ${text}`);
-    console.log("SidebarItem componentDidMount");
     if (text.length > 20) {
       this.setState({
         subtitleText: `${text}...`
